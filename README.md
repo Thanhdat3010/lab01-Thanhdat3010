@@ -3,77 +3,36 @@
 A starter repository for the CSC10014 Smart Virtual Assistant project.
 
 ## Setup
-
-Follow these steps to set up the development environment from a fresh machine:
-
-1. **Prerequisites**: Ensure that **Python 3.10+** and **Git** are installed.
-2. **Clone the repository**:
-   ```bash
-   git clone https://github.com/Thanhdat3010/lab01-Thanhdat3010.git
-   cd lab01-Thanhdat3010
-   ```
-3. **Create and activate the virtual environment**:
-   - On Windows (PowerShell):
-     ```powershell
-     python -m venv .venv
-     .venv\Scripts\Activate.ps1
-     ```
-     *(In Command Prompt: `.venv\Scripts\activate.bat`)*
-   - On Linux/macOS:
-     ```bash
-     python3 -m venv .venv
-     source .venv/bin/activate
-     ```
-4. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   pip install -e .
-   ```
-5. **Verify setup**:
-   ```bash
-   python scripts/check_env.py
-   ```
-
-## Run
-
-Run the assistant in one-shot mode or interactive mode:
-
-- **One-shot mode** (ask a single question):
-  ```bash
-  python -m assistant "where is the IT helpdesk?"
-  ```
-- **Interactive mode** (chat session):
-  ```bash
-  python -m assistant
-  ```
-  *(Type `quit` or `exit` to end the session)*
-
-## Test
-
-Run automated smoke tests using pytest:
+Prerequisites: Python 3.10+, Git.
 
 ```bash
-pytest -q
+git clone https://github.com/Thanhdat3010/lab01-Thanhdat3010.git
+cd lab01-Thanhdat3010
+python -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+pip install -e .
+```
+
+## Run
+```bash
+python -m assistant "where is the library?"
+# -> Library: room B.201, open Mon-Sat 07:00-20:00.
+```
+
+## Test
+```bash
+pytest -q                          # -> 5 passed
 ```
 
 ## Project structure
+- `data/`: CSV data files (campus office locations and hours).
+- `docs/`: project documentation, reports, and architecture decision records.
+- `scripts/`: developer utility scripts including environment sanity check.
+- `src/`: source code package for the virtual assistant.
+- `tests/`: automated test suite for pytest.
+- `ui/`: user interface assets and components.
 
-```text
-├── data/
-│   └── offices.csv            # Campus office locations and working hours
-├── docs/                      # Project documentation, team reports and ADRs
-├── scripts/
-│   └── check_env.py           # Verification script for developer environment
-├── src/
-│   └── assistant/
-│       ├── __init__.py        # Package initialization
-│       ├── __main__.py        # Assistant CLI entrypoint
-│       └── rules.py           # Rule-based response logic and office lookup
-├── tests/
-│   └── test_smoke.py          # Smoke tests for greeting and lookup functions
-├── ui/                        # UI assets and code for subsequent phases
-├── .gitignore                 # Files and directories ignored by Git
-├── pyproject.toml             # Packaging configuration and project metadata
-├── README.md                  # Project setup and usage instructions
-└── requirements.txt           # Project dependencies (pytest)
-```
+## Troubleshooting
+- "No module named assistant" -> you forgot `pip install -e .` or the venv is not active.
+- PowerShell blocks Activate.ps1 -> `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
